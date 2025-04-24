@@ -4,6 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>3D Cube Game</title>
+  <link rel="icon" type="image/Screenshot 2025-04-24 182355.png" href="image/Screenshot 2025-04-24 182355.png">
   <style>
     body {
       margin: 0;
@@ -44,7 +45,7 @@
       color: white;
       background: rgba(0, 128, 255, 0.8);
       border: 2px solid white;
-      backface-visibility: hidden;
+       backface-visibility: visible;
     }
 
     .front  { transform: translateZ(100px); }
@@ -173,7 +174,7 @@
   </div>
   <div class="instructions">Use Arrow Keys ⬅️➡️⬆️⬇️ to Rotate</div>
 
-  <audio id="loseSound" src="https://www.soundjay.com/human/sounds/scream-01.mp3" preload="auto"></audio>
+  <audio id="loseSound" src="https://pixabay.com/users/freesound_community-46691455/" preload="auto"></audio>
 
   <button id="muteButton">Mute</button>
 
@@ -193,11 +194,14 @@
     const upBtn = document.getElementById("upBtn");
     const rightBtn = document.getElementById("rightBtn");
     const downBtn = document.getElementById("downBtn");
+    const backFace = document.querySelector('.back');
 
     let rotateX = 0;
     let rotateY = 0;
     let gameOver = false;
     let isMuted = false;
+
+    
 
     function updateCubeRotation() {
       if (gameOver) return;
@@ -207,7 +211,7 @@
       const normalizedY = ((rotateY % 360) + 360) % 360;
       if (normalizedY >= 160 && normalizedY <= 200) {
         gameOver = true;
-        if (!isMuted) loseSound.play();
+        
         setTimeout(() => {
           alert("💀 You landed on the LOSE side!");
           location.reload();
@@ -234,7 +238,7 @@
       rotateX += x;
       rotateY += y;
       updateCubeRotation();
-    }, 1000); // rotate every 1 sec
+    }, 900); // rotate every 1 sec
 
     // Keyboard Controls
     document.addEventListener("keydown", (e) => {
@@ -290,6 +294,9 @@
       isMuted = !isMuted;
       muteButton.classList.toggle("muted");
       muteButton.textContent = isMuted ? "Unmute" : "Mute";
+
+      backFace.style.backfaceVisibility = isMuted ? "hidden" : "visible";
+
     });
   </script>
 </body>
